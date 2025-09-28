@@ -13,7 +13,7 @@ import {
     Linkedin
 } from 'lucide-react';
 import { useState } from 'react';
-import MobileFooter from '../../../../components/MobileFooter';
+import { useChat } from '../../../../contexts/ChatContext';
 
 const MobileCustomerServiceView = () => {
     const [formData, setFormData] = useState({
@@ -30,6 +30,7 @@ const MobileCustomerServiceView = () => {
 
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const { openChat } = useChat();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value, type } = e.target;
@@ -88,60 +89,94 @@ const MobileCustomerServiceView = () => {
         {
             icon: FileText,
             title: 'Notificaciones Judiciales',
-            value: 'notificacionesjudiciales@gmvpcredifinanzas.com',
+            value: 'notificaciones@gmvpcredifinanzas.com',
             description: 'Asuntos legales'
         }
     ];
 
     return (
-        <div className="min-h-screen bg-white text-slate-900">
-            {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-slate-50 via-white to-amber-50 py-16 text-slate-900 overflow-hidden">
+        <div className="min-h-screen bg-white">
+            {/* Hero Section - Mobile Native */}
+            <section className="relative py-16 px-6 overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-amber-900">
+                {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10" style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F59E0B' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
                 }}></div>
-                <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
-                    <motion.h1
-                        className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight"
-                        initial={{ opacity: 0, y: -30 }}
+
+                <div className="relative z-10 max-w-sm mx-auto text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <span className="text-amber-500">Contáctanos</span>
-                    </motion.h1>
-                    <motion.p
-                        className="text-lg text-slate-600 mb-6"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3, duration: 0.8 }}
-                    >
-                        Estamos aquí para ayudarte con todas tus necesidades financieras
-                    </motion.p>
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.6, duration: 0.8, type: "spring", stiffness: 100 }}
-                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-amber-50 to-orange-50 text-amber-600 border border-amber-200 rounded-full text-sm font-medium"
-                    >
-                        <MessageCircle className="w-4 h-4 mr-2" />
-                        Servicio al Cliente 24/7
+                        <motion.div
+                            className="inline-flex items-center px-4 py-2 bg-amber-500/20 backdrop-blur-sm text-amber-300 border border-amber-400/30 rounded-full text-sm font-medium mb-6"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                        >
+                            <MessageCircle className="w-4 h-4 mr-2" />
+                            Servicio al Cliente 24/7
+                        </motion.div>
+
+                        <motion.h1
+                            className="text-4xl font-bold text-white mb-6 leading-tight"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3, duration: 0.8 }}
+                        >
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
+                                Contáctanos
+                            </span>
+                        </motion.h1>
+
+                        <motion.p
+                            className="text-lg text-white/90 mb-8 leading-relaxed"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4, duration: 0.8 }}
+                        >
+                            Estamos aquí para ayudarte con todas tus necesidades financieras
+                        </motion.p>
+
+                        <motion.div
+                            className="space-y-4"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.8 }}
+                        >
+                            <button
+                                onClick={openChat}
+                                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg flex items-center justify-center space-x-2"
+                            >
+                                <span>Consulta Gratuita</span>
+                                <ArrowRight className="w-5 h-5" />
+                            </button>
+                            <a
+                                href="tel:+573186401900"
+                                className="w-full bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold py-4 px-8 rounded-2xl flex items-center justify-center space-x-2 hover:bg-white/20 transition-colors"
+                            >
+                                <Phone className="w-5 h-5" />
+                                <span>Llamar Ahora</span>
+                            </a>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Contact Form Section */}
-            <section className="py-12 bg-white">
-                <div className="max-w-6xl mx-auto px-4">
+            {/* Contact Form Section - Mobile Native */}
+            <section className="py-12 px-6 bg-white">
+                <div className="max-w-sm mx-auto">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-slate-200 mb-8">
+                        <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 mb-8">
                             <div className="mb-6">
-                                <h2 className="text-2xl font-bold text-slate-900 mb-3">Envíanos un Mensaje</h2>
-                                <p className="text-slate-600 text-sm">
+                                <h2 className="text-2xl font-bold text-gray-900 mb-3">Envíanos un Mensaje</h2>
+                                <p className="text-gray-600 text-sm">
                                     Completa el formulario y nos pondremos en contacto contigo lo antes posible.
                                 </p>
                             </div>
@@ -160,8 +195,8 @@ const MobileCustomerServiceView = () => {
                                     >
                                         <CheckCircle className="w-6 h-6 text-white" />
                                     </motion.div>
-                                    <h3 className="text-xl font-bold text-slate-900 mb-3">¡Mensaje Enviado!</h3>
-                                    <p className="text-slate-600 text-sm">
+                                    <h3 className="text-xl font-bold text-gray-900 mb-3">¡Mensaje Enviado!</h3>
+                                    <p className="text-gray-600 text-sm">
                                         Hemos recibido tu mensaje. Nos pondremos en contacto contigo pronto.
                                     </p>
                                 </motion.div>
@@ -169,7 +204,7 @@ const MobileCustomerServiceView = () => {
                                 <form onSubmit={handleSubmit} className="space-y-4">
                                     {/* Nombre */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-slate-900 mb-2">
+                                        <label className="block text-sm font-semibold text-gray-900 mb-2">
                                             Nombre *
                                         </label>
                                         <input
@@ -178,14 +213,14 @@ const MobileCustomerServiceView = () => {
                                             value={formData.nombre}
                                             onChange={handleInputChange}
                                             required
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
                                             placeholder="Tu nombre"
                                         />
                                     </div>
 
                                     {/* Apellidos */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-slate-900 mb-2">
+                                        <label className="block text-sm font-semibold text-gray-900 mb-2">
                                             Apellidos
                                         </label>
                                         <input
@@ -193,14 +228,14 @@ const MobileCustomerServiceView = () => {
                                             name="apellidos"
                                             value={formData.apellidos}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
                                             placeholder="Tus apellidos"
                                         />
                                     </div>
 
                                     {/* Email */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-slate-900 mb-2">
+                                        <label className="block text-sm font-semibold text-gray-900 mb-2">
                                             Correo Electrónico *
                                         </label>
                                         <input
@@ -209,14 +244,14 @@ const MobileCustomerServiceView = () => {
                                             value={formData.email}
                                             onChange={handleInputChange}
                                             required
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
                                             placeholder="tu@email.com"
                                         />
                                     </div>
 
                                     {/* Teléfono */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-slate-900 mb-2">
+                                        <label className="block text-sm font-semibold text-gray-900 mb-2">
                                             Teléfono
                                         </label>
                                         <input
@@ -224,14 +259,14 @@ const MobileCustomerServiceView = () => {
                                             name="telefono"
                                             value={formData.telefono}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
                                             placeholder="Tu teléfono fijo"
                                         />
                                     </div>
 
                                     {/* Celular */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-slate-900 mb-2">
+                                        <label className="block text-sm font-semibold text-gray-900 mb-2">
                                             Celular
                                         </label>
                                         <input
@@ -239,14 +274,14 @@ const MobileCustomerServiceView = () => {
                                             name="celular"
                                             value={formData.celular}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
                                             placeholder="Tu número celular"
                                         />
                                     </div>
 
                                     {/* Ciudad */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-slate-900 mb-2">
+                                        <label className="block text-sm font-semibold text-gray-900 mb-2">
                                             Ciudad
                                         </label>
                                         <input
@@ -254,21 +289,21 @@ const MobileCustomerServiceView = () => {
                                             name="ciudad"
                                             value={formData.ciudad}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
                                             placeholder="Tu ciudad"
                                         />
                                     </div>
 
                                     {/* Departamento */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-slate-900 mb-2">
+                                        <label className="block text-sm font-semibold text-gray-900 mb-2">
                                             Departamento
                                         </label>
                                         <select
                                             name="departamento"
                                             value={formData.departamento}
                                             onChange={handleInputChange}
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300"
                                         >
                                             <option value="">Selecciona tu departamento</option>
                                             <option value="Antioquia">Antioquia</option>
@@ -308,7 +343,7 @@ const MobileCustomerServiceView = () => {
 
                                     {/* Comentario */}
                                     <div>
-                                        <label className="block text-sm font-semibold text-slate-900 mb-2">
+                                        <label className="block text-sm font-semibold text-gray-900 mb-2">
                                             Comentario o Mensaje *
                                         </label>
                                         <textarea
@@ -317,7 +352,7 @@ const MobileCustomerServiceView = () => {
                                             onChange={handleInputChange}
                                             required
                                             rows={4}
-                                            className="w-full px-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 resize-none"
+                                            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-300 resize-none"
                                             placeholder="Cuéntanos cómo podemos ayudarte..."
                                         />
                                     </div>
@@ -330,10 +365,10 @@ const MobileCustomerServiceView = () => {
                                             checked={formData.aceptaPoliticas}
                                             onChange={handleInputChange}
                                             required
-                                            className="mt-1 w-4 h-4 text-amber-600 border-slate-300 rounded focus:ring-amber-500"
+                                            className="mt-1 w-4 h-4 text-amber-600 border-gray-300 rounded focus:ring-amber-500"
                                         />
-                                        <label className="text-xs text-slate-600">
-                                            Acepto las <a href="/politicas" className="text-amber-600 hover:text-amber-700 font-medium">Políticas de Privacidad</a>
+                                        <label className="text-xs text-gray-600">
+                                            Acepto las <a href="/mobile/politicas" className="text-amber-600 hover:text-amber-700 font-medium">Políticas de Privacidad</a>
                                         </label>
                                     </div>
 
@@ -368,35 +403,35 @@ const MobileCustomerServiceView = () => {
                 </div>
             </section>
 
-            {/* Contact Information Section */}
-            <section className="py-12 bg-gradient-to-br from-slate-50 via-white to-amber-50">
-                <div className="max-w-6xl mx-auto px-4">
+            {/* Contact Information Section - Mobile Native */}
+            <section className="py-12 px-6 bg-gradient-to-br from-slate-50 via-white to-amber-50">
+                <div className="max-w-sm mx-auto">
                     {/* Office Location */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
-                        className="bg-white p-6 rounded-2xl shadow-lg border border-slate-200 mb-6"
+                        className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 mb-6"
                     >
                         <div className="flex items-center mb-4">
                             <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg flex items-center justify-center mr-3">
                                 <MapPin className="w-5 h-5 text-white" />
                             </div>
-                            <h3 className="text-xl font-bold text-slate-900">Oficina</h3>
+                            <h3 className="text-xl font-bold text-gray-900">Oficina</h3>
                         </div>
-                        <p className="text-slate-600">
+                        <p className="text-gray-600">
                             Armenia, Quindío, Colombia
                         </p>
                     </motion.div>
 
                     {/* Contact Methods */}
                     <div className="space-y-4">
-                        <h3 className="text-2xl font-bold text-slate-900 mb-4">Contáctanos</h3>
+                        <h3 className="text-2xl font-bold text-gray-900 mb-4">Contáctanos</h3>
                         {contactInfo.map((contact, index) => (
                             <motion.div
                                 key={index}
-                                className="bg-white p-4 rounded-xl shadow-lg border border-slate-200"
+                                className="bg-white p-4 rounded-xl shadow-lg border border-gray-200"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -413,9 +448,9 @@ const MobileCustomerServiceView = () => {
                                         <contact.icon className="w-4 h-4 text-white" />
                                     </motion.div>
                                     <div className="flex-1">
-                                        <h4 className="font-bold text-slate-900 text-sm mb-1">{contact.title}</h4>
-                                        <p className="text-slate-900 font-semibold text-sm mb-1">{contact.value}</p>
-                                        <p className="text-xs text-slate-600">{contact.description}</p>
+                                        <h4 className="font-bold text-gray-900 text-sm mb-1">{contact.title}</h4>
+                                        <p className="text-gray-900 font-semibold text-sm mb-1">{contact.value}</p>
+                                        <p className="text-xs text-gray-600">{contact.description}</p>
                                     </div>
                                 </div>
                             </motion.div>
@@ -428,9 +463,9 @@ const MobileCustomerServiceView = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="bg-white p-6 rounded-2xl shadow-lg border border-slate-200 mt-6"
+                        className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 mt-6"
                     >
-                        <h3 className="text-xl font-bold text-slate-900 mb-4">Síguenos</h3>
+                        <h3 className="text-xl font-bold text-gray-900 mb-4">Síguenos</h3>
                         <div className="flex space-x-4">
                             {[
                                 { icon: Facebook, href: "#", label: "Facebook" },
@@ -440,7 +475,7 @@ const MobileCustomerServiceView = () => {
                                 <motion.a
                                     key={index}
                                     href={social.href}
-                                    className="w-10 h-10 bg-gradient-to-r from-slate-500 to-slate-600 rounded-lg flex items-center justify-center text-white hover:from-amber-500 hover:to-orange-500 transition-all duration-300"
+                                    className="w-10 h-10 bg-gradient-to-r from-gray-500 to-gray-600 rounded-lg flex items-center justify-center text-white hover:from-amber-500 hover:to-orange-500 transition-all duration-300"
                                     whileHover={{ scale: 1.1, rotate: 5 }}
                                     whileTap={{ scale: 0.95 }}
                                     aria-label={social.label}
@@ -453,19 +488,19 @@ const MobileCustomerServiceView = () => {
                 </div>
             </section>
 
-            {/* Special Section */}
-            <section className="py-16 bg-white">
-                <div className="max-w-4xl mx-auto px-4 text-center">
+            {/* Special Section - Mobile Native */}
+            <section className="py-12 px-6 bg-white">
+                <div className="max-w-sm mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
                             ¿Reportado y quieres saber cómo volver a tener una vida crediticia?
                         </h2>
-                        <p className="text-lg text-slate-600 mb-8">
+                        <p className="text-base text-gray-600 mb-8">
                             Nuestro equipo especializado te ayudará a recuperar tu historial crediticio y acceder a mejores oportunidades financieras.
                         </p>
 
@@ -473,22 +508,22 @@ const MobileCustomerServiceView = () => {
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                         >
-                            <a
-                                href="tel:+573186401900"
+                            <button
+                                onClick={openChat}
                                 className="inline-flex items-center justify-center w-full px-6 py-4 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
                             >
                                 <MessageCircle className="w-5 h-5 mr-3" />
                                 Chatea con Nosotros
                                 <ArrowRight className="w-4 h-4 ml-3" />
-                            </a>
+                            </button>
                         </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Footer */}
-            <section className="py-12 bg-slate-900 text-white">
-                <div className="max-w-6xl mx-auto px-4">
+            {/* Footer - Mobile Native */}
+            <section className="py-12 px-6 bg-slate-900 text-white">
+                <div className="max-w-sm mx-auto">
                     <motion.div
                         className="text-center"
                         initial={{ opacity: 0, y: 20 }}
@@ -497,9 +532,9 @@ const MobileCustomerServiceView = () => {
                         transition={{ duration: 0.6 }}
                     >
                         <div className="space-y-2 text-sm mb-8">
-                            <a href="/politicas" className="block text-amber-400 hover:text-amber-300 transition-colors duration-300">Política de privacidad</a>
-                            <a href="/politicas" className="block text-amber-400 hover:text-amber-300 transition-colors duration-300">Política de Cookies</a>
-                            <a href="/politicas" className="block text-amber-400 hover:text-amber-300 transition-colors duration-300">Aviso Legal</a>
+                            <a href="/mobile/politicas" className="block text-amber-400 hover:text-amber-300 transition-colors duration-300">Política de privacidad</a>
+                            <a href="/mobile/politicas" className="block text-amber-400 hover:text-amber-300 transition-colors duration-300">Política de Cookies</a>
+                            <a href="/mobile/politicas" className="block text-amber-400 hover:text-amber-300 transition-colors duration-300">Aviso Legal</a>
                         </div>
                         <div className="pt-6 border-t border-slate-700">
                             <p className="text-slate-400 text-sm">
@@ -509,9 +544,6 @@ const MobileCustomerServiceView = () => {
                     </motion.div>
                 </div>
             </section>
-
-            {/* Mobile Footer */}
-            <MobileFooter />
         </div>
     );
 };

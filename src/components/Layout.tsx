@@ -6,6 +6,7 @@ import logo from '../assets/logo.png';
 import { ChatProvider, useChat } from '../contexts/ChatContext';
 import ChatBubble from './ChatBubble';
 import ScrollToTop from './ScrollToTop';
+import RedirectToMobile from './RedirectToMobile';
 
 const LayoutContent = () => {
   const { isChatOpen, closeChat, openChat } = useChat();
@@ -31,6 +32,7 @@ const LayoutContent = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-amber-50">
       <ScrollToTop />
+      <RedirectToMobile />
       {/* Modern Header with Glassmorphism */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-amber-200/50 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

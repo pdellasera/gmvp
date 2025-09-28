@@ -14,10 +14,11 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
-import MobileFooter from '../../../../components/MobileFooter';
+import { useChat } from '../../../../contexts/ChatContext';
 
 const MobilePoliticaView = () => {
     const [expandedPolicy, setExpandedPolicy] = useState<number | null>(null);
+    const { openChat } = useChat();
 
     const policies = [
         {
@@ -68,54 +69,88 @@ const MobilePoliticaView = () => {
     };
 
     return (
-        <div className="min-h-screen bg-white text-slate-900">
-            {/* Hero Section */}
-            <section className="relative bg-gradient-to-br from-slate-50 via-white to-amber-50 py-16 text-slate-900 overflow-hidden">
+        <div className="min-h-screen bg-white">
+            {/* Hero Section - Mobile Native */}
+            <section className="relative py-16 px-6 overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-amber-900">
+                {/* Background Pattern */}
                 <div className="absolute inset-0 opacity-10" style={{
                     backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F59E0B' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
                 }}></div>
-                <div className="relative z-10 max-w-7xl mx-auto px-4 text-center">
-                    <motion.h1
-                        className="text-3xl md:text-4xl font-extrabold mb-4 leading-tight"
-                        initial={{ opacity: 0, y: -30 }}
+
+                <div className="relative z-10 max-w-sm mx-auto text-center">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <span className="text-amber-500">Políticas</span> Corporativas
-                    </motion.h1>
-                    <motion.p
-                        className="text-lg text-slate-600 mb-6"
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.3, duration: 0.8 }}
-                    >
-                        Marco legal para brindar información clara y completa
-                    </motion.p>
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.6, duration: 0.8, type: "spring", stiffness: 100 }}
-                        className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-amber-50 to-orange-50 text-amber-600 border border-amber-200 rounded-full text-sm font-medium"
-                    >
-                        <Shield className="w-4 h-4 mr-2" />
-                        Confiabilidad Garantizada
+                        <motion.div
+                            className="inline-flex items-center px-4 py-2 bg-amber-500/20 backdrop-blur-sm text-amber-300 border border-amber-400/30 rounded-full text-sm font-medium mb-6"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
+                        >
+                            <Shield className="w-4 h-4 mr-2" />
+                            Confiabilidad Garantizada
+                        </motion.div>
+
+                        <motion.h1
+                            className="text-4xl font-bold text-white mb-6 leading-tight"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3, duration: 0.8 }}
+                        >
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">
+                                Políticas
+                            </span>
+                            <span className="block text-white">Corporativas</span>
+                        </motion.h1>
+
+                        <motion.p
+                            className="text-lg text-white/90 mb-8 leading-relaxed"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4, duration: 0.8 }}
+                        >
+                            Marco legal para brindar información clara y completa
+                        </motion.p>
+
+                        <motion.div
+                            className="space-y-4"
+                            initial={{ opacity: 0, y: 30 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.8 }}
+                        >
+                            <button
+                                onClick={openChat}
+                                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white font-semibold py-4 px-8 rounded-2xl shadow-lg flex items-center justify-center space-x-2"
+                            >
+                                <span>Consulta Gratuita</span>
+                                <ArrowRight className="w-5 h-5" />
+                            </button>
+                            <Link
+                                to="/mobile/servicio-cliente"
+                                className="w-full bg-white/10 backdrop-blur-sm border border-white/30 text-white font-semibold py-4 px-8 rounded-2xl flex items-center justify-center space-x-2 hover:bg-white/20 transition-colors"
+                            >
+                                <span>Contáctanos</span>
+                            </Link>
+                        </motion.div>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Introduction Section */}
-            <section className="py-12 bg-gradient-to-br from-slate-50 via-white to-amber-50">
-                <div className="max-w-4xl mx-auto px-4 text-center">
+            {/* Introduction Section - Mobile Native */}
+            <section className="py-12 px-6 bg-gradient-to-br from-slate-50 via-white to-amber-50">
+                <div className="max-w-sm mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
                             ¿En qué consisten las políticas de nuestra compañía?
                         </h2>
-                        <p className="text-base md:text-lg text-slate-600 leading-relaxed mb-6">
+                        <p className="text-base text-gray-600 leading-relaxed mb-6">
                             Las políticas corporativas establecen el marco legal para brindar una información clara y completa a nuestros clientes, de esta forma aseguramos, la confiabilidad y el respaldo de nuestro equipo de trabajo de cara al cliente.
                         </p>
                         <motion.div
@@ -129,29 +164,29 @@ const MobilePoliticaView = () => {
                 </div>
             </section>
 
-            {/* Policies Section */}
-            <section className="py-16 bg-white">
-                <div className="max-w-7xl mx-auto px-4">
+            {/* Policies Section - Mobile Native */}
+            <section className="py-12 px-6 bg-white">
+                <div className="max-w-sm mx-auto">
                     <motion.div
-                        className="text-center mb-12"
-                        initial={{ opacity: 0, y: -30 }}
+                        className="text-center mb-8"
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-3xl font-bold text-slate-900 mb-3">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
                             Nuestras <span className="text-amber-500">Políticas</span>
                         </h2>
-                        <p className="text-lg text-slate-600">
+                        <p className="text-base text-gray-600">
                             Comprometidos con la transparencia y el cumplimiento legal
                         </p>
                     </motion.div>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                         {policies.map((policy, index) => (
                             <motion.div
                                 key={policy.id}
-                                className="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden"
+                                className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden"
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
@@ -172,10 +207,10 @@ const MobilePoliticaView = () => {
                                             <policy.icon className="w-6 h-6 text-white" />
                                         </motion.div>
                                         <div>
-                                            <h3 className="text-xl font-bold text-slate-900 mb-1">
+                                            <h3 className="text-lg font-bold text-gray-900 mb-1">
                                                 {policy.title}
                                             </h3>
-                                            <p className="text-sm text-slate-600 line-clamp-2">
+                                            <p className="text-sm text-gray-600 line-clamp-2">
                                                 {policy.description}
                                             </p>
                                         </div>
@@ -184,7 +219,7 @@ const MobilePoliticaView = () => {
                                         animate={{ rotate: expandedPolicy === policy.id ? 180 : 0 }}
                                         transition={{ duration: 0.3 }}
                                     >
-                                        <ChevronDown className="w-6 h-6 text-slate-400" />
+                                        <ChevronDown className="w-5 h-5 text-gray-400" />
                                     </motion.div>
                                 </motion.button>
 
@@ -198,12 +233,12 @@ const MobilePoliticaView = () => {
                                     transition={{ duration: 0.3, ease: "easeInOut" }}
                                     className="overflow-hidden"
                                 >
-                                    <div className="px-6 pb-6 border-t border-slate-100">
+                                    <div className="px-6 pb-6 border-t border-gray-100">
                                         <div className="pt-4 space-y-4">
                                             {/* Content based on policy type */}
                                             {policy.id === 1 && policy.phases && (
                                                 <div className="space-y-3">
-                                                    <h4 className="font-semibold text-slate-900 mb-3">Fases del Proceso:</h4>
+                                                    <h4 className="font-semibold text-gray-900 mb-3">Fases del Proceso:</h4>
                                                     {policy.phases.map((phase, phaseIndex) => (
                                                         <motion.div
                                                             key={phaseIndex}
@@ -216,7 +251,7 @@ const MobilePoliticaView = () => {
                                                                 <span className="font-bold text-amber-700">{phase.days}</span>
                                                                 <span className="text-sm font-medium text-amber-600">{phase.stage}</span>
                                                             </div>
-                                                            <p className="text-sm text-slate-700">{phase.description}</p>
+                                                            <p className="text-sm text-gray-700">{phase.description}</p>
                                                         </motion.div>
                                                     ))}
                                                 </div>
@@ -224,7 +259,7 @@ const MobilePoliticaView = () => {
 
                                             {policy.id === 2 && policy.compliance && (
                                                 <div className="space-y-3">
-                                                    <h4 className="font-semibold text-slate-900 mb-3">Cumplimiento Legal:</h4>
+                                                    <h4 className="font-semibold text-gray-900 mb-3">Cumplimiento Legal:</h4>
                                                     {policy.compliance.map((item, itemIndex) => (
                                                         <motion.div
                                                             key={itemIndex}
@@ -233,8 +268,8 @@ const MobilePoliticaView = () => {
                                                             animate={{ opacity: 1, x: 0 }}
                                                             transition={{ delay: itemIndex * 0.1 }}
                                                         >
-                                                            <CheckCircle className="w-5 h-5 text-blue-500 mt-0.5 flex-shrink-0" />
-                                                            <span className="text-slate-700">{item}</span>
+                                                            <CheckCircle className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0" />
+                                                            <span className="text-sm text-gray-700">{item}</span>
                                                         </motion.div>
                                                     ))}
                                                 </div>
@@ -242,7 +277,7 @@ const MobilePoliticaView = () => {
 
                                             {policy.id === 3 && policy.measures && (
                                                 <div className="space-y-3">
-                                                    <h4 className="font-semibold text-slate-900 mb-3">Medidas de Control:</h4>
+                                                    <h4 className="font-semibold text-gray-900 mb-3">Medidas de Control:</h4>
                                                     {policy.measures.map((measure, measureIndex) => (
                                                         <motion.div
                                                             key={measureIndex}
@@ -251,8 +286,8 @@ const MobilePoliticaView = () => {
                                                             animate={{ opacity: 1, x: 0 }}
                                                             transition={{ delay: measureIndex * 0.1 }}
                                                         >
-                                                            <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                                                            <span className="text-slate-700">{measure}</span>
+                                                            <CheckCircle className="w-4 h-4 text-green-500 mt-0.5 flex-shrink-0" />
+                                                            <span className="text-sm text-gray-700">{measure}</span>
                                                         </motion.div>
                                                     ))}
                                                 </div>
@@ -266,20 +301,20 @@ const MobilePoliticaView = () => {
                 </div>
             </section>
 
-            {/* Legal Compliance Section */}
-            <section className="py-16 bg-gradient-to-br from-slate-50 via-white to-amber-50">
-                <div className="max-w-6xl mx-auto px-4">
+            {/* Legal Compliance Section - Mobile Native */}
+            <section className="py-12 px-6 bg-gradient-to-br from-slate-50 via-white to-amber-50">
+                <div className="max-w-sm mx-auto">
                     <motion.div
-                        className="text-center mb-12"
-                        initial={{ opacity: 0, y: -30 }}
+                        className="text-center mb-8"
+                        initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-3xl font-bold text-slate-900 mb-4">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
                             Cumplimiento <span className="text-amber-500">Legal</span>
                         </h2>
-                        <p className="text-lg text-slate-600">
+                        <p className="text-base text-gray-600">
                             Nuestro compromiso con la transparencia y el cumplimiento de todas las normativas vigentes
                         </p>
                     </motion.div>
@@ -301,7 +336,7 @@ const MobilePoliticaView = () => {
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
-                                <div className="bg-white p-4 rounded-xl shadow-lg border border-slate-200 group-hover:shadow-xl transition-all duration-300 h-full flex flex-col">
+                                <div className="bg-white p-4 rounded-xl shadow-lg border border-gray-200 group-hover:shadow-xl transition-all duration-300 h-full flex flex-col">
                                     <motion.div
                                         className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-lg flex items-center justify-center mx-auto mb-3 shadow-lg"
                                         whileHover={{ rotate: 360 }}
@@ -309,8 +344,8 @@ const MobilePoliticaView = () => {
                                     >
                                         <item.icon className="w-5 h-5 text-white" />
                                     </motion.div>
-                                    <h3 className="font-bold text-slate-900 mb-1 text-sm leading-tight">{item.title}</h3>
-                                    <p className="text-xs text-slate-600 flex-grow">{item.description}</p>
+                                    <h3 className="font-bold text-gray-900 mb-1 text-sm leading-tight">{item.title}</h3>
+                                    <p className="text-xs text-gray-600 flex-grow">{item.description}</p>
                                 </div>
                             </motion.div>
                         ))}
@@ -318,19 +353,19 @@ const MobilePoliticaView = () => {
                 </div>
             </section>
 
-            {/* Contact Section */}
-            <section className="py-16 bg-white">
-                <div className="max-w-4xl mx-auto px-4 text-center">
+            {/* Contact Section - Mobile Native */}
+            <section className="py-12 px-6 bg-white">
+                <div className="max-w-sm mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8 }}
                     >
-                        <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-4">
+                        <h2 className="text-2xl font-bold text-gray-900 mb-4">
                             ¿Tienes más preguntas?
                         </h2>
-                        <p className="text-lg text-slate-600 mb-8">
+                        <p className="text-base text-gray-600 mb-8">
                             Nuestro equipo está disponible para resolver cualquier consulta sobre nuestras políticas
                         </p>
 
@@ -350,7 +385,7 @@ const MobilePoliticaView = () => {
                                 whileTap={{ scale: 0.98 }}
                             >
                                 <Link
-                                    to="/servicio-cliente"
+                                    to="/mobile/servicio-cliente"
                                     className="group inline-flex items-center justify-center w-full px-6 py-4 border-2 border-amber-500 text-amber-600 font-bold rounded-2xl hover:bg-amber-500 hover:text-white transition-all duration-300"
                                 >
                                     <MessageCircle className="w-5 h-5 mr-3 group-hover:scale-110 transition-transform" />
@@ -363,9 +398,9 @@ const MobilePoliticaView = () => {
                 </div>
             </section>
 
-            {/* Additional Policies Footer */}
-            <section className="py-12 bg-slate-900 text-white">
-                <div className="max-w-6xl mx-auto px-4">
+            {/* Additional Policies Footer - Mobile Native */}
+            <section className="py-12 px-6 bg-slate-900 text-white">
+                <div className="max-w-sm mx-auto">
                     <motion.div
                         className="text-center"
                         initial={{ opacity: 0, y: 20 }}
@@ -387,9 +422,6 @@ const MobilePoliticaView = () => {
                     </motion.div>
                 </div>
             </section>
-
-            {/* Mobile Footer */}
-            <MobileFooter />
         </div>
     );
 };

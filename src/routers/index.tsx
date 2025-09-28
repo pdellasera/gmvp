@@ -1,5 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Layout from '../components/Layout';
+import MobileLayout from '../components/mobile/MobileLayout';
 import SwitcherView from '../modules/home/view/switcherView';
 
 import SwitcherViewCompania  from '../modules/compania/view/switcherView';
@@ -33,6 +34,33 @@ const router = createBrowserRouter([
       },
       {
         path: "/servicio-cliente",
+        element: <SwitcherViewCustomerService />
+      }
+    ]
+  },
+  // Mobile routes with MobileLayout
+  {
+    path: "/mobile",
+    element: <MobileLayout />,
+    children: [
+      {
+        path: "/mobile/",
+        element: <SwitcherView />
+      },
+      {
+        path: "/mobile/nuestra-compania",
+        element: <SwitcherViewCompania />
+      },
+      {
+        path: "/mobile/productos-servicios",
+        element: <SwitcherViewService />
+      },
+      {
+        path: "/mobile/politicas",
+        element: <SwitcherViewPolitica />
+      },
+      {
+        path: "/mobile/servicio-cliente",
         element: <SwitcherViewCustomerService />
       }
     ]

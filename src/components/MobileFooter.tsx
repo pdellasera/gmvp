@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Twitter, ArrowRight, Star, Award } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Twitter, Star, Award } from 'lucide-react';
 import logo from '../assets/logo.png';
 
 const MobileFooter = () => {
@@ -21,11 +21,8 @@ const MobileFooter = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="flex items-center justify-center space-x-3 mb-4">
-            <img src={logo} alt="GMVP Credifinanzas Logo" className="h-10 w-auto filter brightness-0 invert" />
-            <div>
-              <h3 className="text-xl font-bold">GMVP Credifinanzas</h3>
-              <p className="text-amber-400 text-sm font-medium">Soluciones Financieras</p>
-            </div>
+            <img src={logo} alt="GMVP Credifinanzas Logo" className="h-14 w-42 filter brightness-0 invert" />
+       
           </div>
           <p className="text-gray-300 text-sm leading-relaxed max-w-sm mx-auto">
             Transformamos tu historial crediticio con estrategias personalizadas y resultados garantizados.
@@ -146,21 +143,7 @@ const MobileFooter = () => {
           </div>
         </motion.div>
 
-        {/* CTA Button */}
-        <motion.div
-          className="mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6, duration: 0.6 }}
-        >
-          <Link
-            to="/servicio-cliente"
-            className="btn-primary w-full justify-center text-base py-4"
-          >
-            Consulta Gratuita <ArrowRight className="w-4 h-4 ml-2" />
-          </Link>
-        </motion.div>
+     
 
         {/* Legal Links */}
         <motion.div

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDeviceDetector } from '../../../hooks/useDeviceDetection';
-import MobileHomeView from './mobile/MobileHomeView';
+import MobileHomeView from '../../../modules/home/view/mobile/MobileHomeView';
 import WebHomeView from './web/WebHomeView';
 
 
